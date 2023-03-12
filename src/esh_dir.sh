@@ -2,14 +2,19 @@
 
 set -euo pipefail
 
-params_file=$1
-templates_dir=$2
-
+echo "Sourcing env..." >&2
 set -a
-. "$params_file"
+. ./params.env
 set +a
+echo "done sourcing env" >&2
 
-find "$templates_dir" \( -name '*.yaml' -or -name '*.yml' \) -type f -print0 | while IFS= read -r -d '' filename; do
+template_dir="../.templates/${TEMPLATE:-default}/"
+
+echo "Template dir is '$template_dir'" >&2
+
+find "$template_dir" \( -name '*.yaml' -or -name '*.yml' \) -type f -print0 | while IFS= read -r -d '' filename; do
+    echo "Processing '$filename'..." >&2
     echo "---"
     esh "$filename"
+    echo "done processing '$filename'" >&2
 done

@@ -1,0 +1,12 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ConfigManagementPlugin
+metadata:
+  name: esh-cmp-plugin
+spec:
+  version: v0.1
+  init:
+    command: [sh, -c, 'echo "Initializing..."']
+  generate:
+    command: [sh, -c, 'APP=$ARGOCD_ENV_APP ENV=$ARGOCD_ENV_ENV esh_dir.sh']
+  discover:
+    fileName: "./params.env"
