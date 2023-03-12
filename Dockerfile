@@ -11,4 +11,4 @@ COPY plugin.yaml ./
 
 USER 999
 
-CMD [/var/run/argocd/argocd-cmp-server]
+CMD ["/var/run/argocd/argocd-cmp-server"]
